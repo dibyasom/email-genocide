@@ -11,8 +11,8 @@ search.addEventListener("click", async () => {
   //   console.log(json);
 });
 
-search.addEventListener("click", async () => {
-  const res = await fetch("/post?search=" + encodeURIComponent(txt.value));
+nameSearch.addEventListener("click", async () => {
+  const res = await fetch("/post?search=" + encodeURIComponent(fullName.value));
   console.log(res);
   //   const json = await res.json();
   //   console.log(json);
