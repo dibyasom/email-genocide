@@ -16,30 +16,34 @@ async function init() {
     const client = await pool.connect();
     const [result] = await Promise.all([
       client.query(
-        `SELECT phoneno FROM users WHERE user_id=${req.query.search};`
+        `SELECT fullName, email_id, phoneno, timesent, contentfile, emailstatus 
+        FROM users NATURAL INNER JOIN emailinfo NATURAL INNER JOIN emailStored
+        WHERE user_id=${req.query.search};`
       ),
     ]);
 
     res
       .json({
-        phoneno: result.rows[0].phoneno || {},
+        result: result.rows || {},
       })
       .end();
   });
   // **************************************SERVES ADMIN VERIFICATION*******************************************************************
-  app.get("/post", async (req, res) => {
+  app.get("/get/isAdmin", async (req, res) => {
     const client = await pool.connect();
     const queryFor = req.query.search;
-    const [result] = await Promise.all([
+    console.log(
+      `SELECT usertype FROM users WHERE username='${queryFor}' OR fullname='${queryFor}'`
+    );
+    const [userType] = await Promise.all([
       client.query(
         `SELECT usertype FROM users WHERE username='${queryFor}' OR fullname='${queryFor}';`
       ),
     ]);
-
-    console.log(result.rows[0].usertype);
+    console.log(userType.rows[0]);
     res
       .json({
-        isAdmin: result.rows[0].usertype || {},
+        isAdmin: userType.rows[0] || {},
       })
       .end();
   });
