@@ -1,0 +1,20 @@
+GET http://localhost:3000/user/register
+
+###
+
+POST http://localhost:3000/user/register
+Content-Type: application/json
+
+{
+    "username": "Dibyasom Puhan",
+    "password": "Dibyasom@2001"
+}
+
+###
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+    "username": "Dibyasom Puhan",
+    "password": "Dibyasom@2001"
+}
