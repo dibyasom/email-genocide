@@ -1,5 +1,5 @@
 const express = require("express");
-const path = require("path");
+// const path = require("path");
 const { Pool } = require("pg");
 const { resourceUsage } = require("process");
 
@@ -10,6 +10,12 @@ const pool = new Pool({
 
 async function init() {
   const app = express();
+  //   *************************************SERVES LOGIN FUNCTIONALITY.*****************************************************************
+
+  //   *************************************SERVES AUTHENTICATION.*****************************************************************
+  app.get("/login", (req, res) => {
+    //Authenticate user.
+  });
 
   //   *************************************SERVES PHONE NO.*****************************************************************
   app.get("/get", async (req, res) => {
