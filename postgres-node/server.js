@@ -1,9 +1,12 @@
+// Import env config, [Contains JWT secret key]
+require("dotenv").config();
+
 // Import express
 const express = require("express");
 
 // Import postgreSQL client
 const { Pool } = require("pg");
-const { resourceUsage } = require("process");
+const { resourceUsage, nextTick } = require("process");
 const pool = new Pool({
   connectionString:
     "postgresql://postgres:mysecretpassword@localhost:5432/emailer",
@@ -38,7 +41,6 @@ async function init() {
   app.post("/user/register", async (req, res) => {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
       const user = { username: req.body.username, password: hashedPassword };
       users.push(user);
       res.status(201).send();
@@ -63,10 +65,10 @@ async function init() {
     }
     try {
       if (await bcrypt.compare(req.body.password, user.password)) {
-        res.send("Success!, Creating Token...");
-        const userTokenRaw = { username: user.username };
-        const JWtoken = jwt.sign(userTokenRaw, process.env.SECRET_TOKEN_KEY);
+        const userTokenRaw = { username: user.username }; // COnfigure payload.
+        const JWtoken = jwt.sign(userTokenRaw, process.env.ACCESS_TOKEN_SECRET);
 
+        // res.send("Success!, Creating Token...");
         res.json({ accessToken: JWtoken }).end("Token Created Successfully!");
       } else {
         res.send("Access Denied!!");
@@ -75,6 +77,27 @@ async function init() {
       res.status(500).send();
     }
   });
+
+  //************* */
+
+  app.get(
+    "/compliment",
+    (req, res, next) => {
+      const authHeader = req.headers["authorization"];
+      const token = authHeader && authHeader.split(" ")[1];
+
+      if (token === null) res.send("Token Missing, access denied").end();
+
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+      });
+    },
+    (req, res) => {
+      res.json({ authorizedUser: req.user.username }).end();
+    }
+  );
 
   //   *************************************SERVES EMAIL DETAILS.*****************************************************************
   app.get("/get", async (req, res) => {

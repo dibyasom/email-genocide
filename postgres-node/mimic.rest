@@ -11,6 +11,16 @@ Content-Type: application/json
 }
 
 ###
+
+POST http://localhost:3000/user/register
+Content-Type: application/json
+
+{
+    "username": "Rex",
+    "password": "ImKyoot"
+}
+
+###
 POST http://localhost:3000/user/login
 Content-Type: application/json
 
@@ -18,3 +28,21 @@ Content-Type: application/json
     "username": "Dibyasom Puhan",
     "password": "Dibyasom@2001"
 }
+
+###
+
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+    "username": "Rex",
+    "password": "ImKyoot"
+}
+
+###
+GET http://localhost:3000/compliment
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRpYnlhc29tIFB1aGFuIiwiaWF0IjoxNjExMTYzMDQ2fQ.bowkT-zYdmeJF-MFBJqel58uG4OmcPq5IBtVtOoourk
+
+###
+GET http://localhost:3000/compliment
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJleCIsImlhdCI6MTYxMTE2MzA4N30.QGO3psg7Z7ZOPusmXV4OdK29Fnr26cyPKLl0PUUuR8Y
