@@ -103,22 +103,40 @@ async function init() {
   //******************************* SERVICES WITH AUTHENTICITY CHECK******************* */
 
   app.get(
-    "/compliment",
+    "/recent-emails",
     (req, res, next) => {
+      //Middle-Ware Authentication.
       const authHeader = req.headers["authorization"];
       const token = authHeader && authHeader.split(" ")[1];
 
       if (token === null) {
-        res.send("Token Missing, access denied").end();
+        res.sendStatus(401).end();
       }
-      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, userInfo) => {
         if (err) return res.sendStatus(403);
-        req.user = user;
-        next();
+        req.user = userInfo;
+        next(); //Route if authorized.
       });
     },
-    (req, res) => {
-      res.json({ authorizedUser: req.user.username }).end();
+    async (req, res) => {
+      let recentEmails;
+      if (req.user.userType) {
+        recentEmails = await GET_psql(`SELECT email_id AS EMAIL_LIST, users.username AS LAST_USED_BY, 
+        LEFT(to_char(timesent, 'HH12:MI:SS'), 19) 
+        AS TIME_SENT FROM emailinfo NATURAL INNER JOIN users ORDER BY timesent;`);
+      } else {
+        recentEmails = await GET_psql(`SELECT email_id AS EMAIL_LIST, users.username AS LAST_USED_BY, 
+        LEFT(to_char(timesent, 'HH12:MI:SS'), 19) AS TIME_SENT FROM 
+        emailinfo INNER JOIN users ON users.user_id = emailinfo.user_id AND users.user_id=${req.user.userId};`);
+      }
+      res
+        .json({
+          authorizedUserId: req.user.userId,
+          isAdmin: req.user.userType,
+          recentEmails: recentEmails,
+        })
+        .end();
     }
   );
 
