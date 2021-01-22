@@ -1,31 +1,42 @@
-GET http://localhost:3000/user/register
 
-###
+### **************************************************************************************************************
 
-POST http://localhost:3000/user/register
-Content-Type: application/json
-
-{
-    "username": "Dibyasom Puhan",
-    "password": "Dibyasom@2001"
-}
-
-###
+### New registration call. 
 
 POST http://localhost:3000/user/register
 Content-Type: application/json
 
 {
-    "username": "Rex",
-    "password": "ImKyoot"
+    "username": "necromancer_",
+    "password": "Dibyasom@2001",
+    "email": "dibya.secret@gmail.com",
+    "fullname": "Dibyasom Puhan",
+    "phoneno": "9668766409",
+    "usertype": true
 }
 
-###
+### New registration call.
+
+POST http://localhost:3000/user/register
+Content-Type: application/json
+
+{
+    "username": "kylo_ren",
+    "password": "emailer123",
+    "email": "nakul.chawla1532@gmail.com",
+    "fullname": "Nakul Chawla",
+    "phoneno": "9896549995",
+    "usertype": true
+}
+
+### **************************************************************************************************************
+
+### User login call. [Authenticate and authorization (returns jwt)]
 POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-    "username": "Dibyasom Puhan",
+    "username": "necromancer_",
     "password": "Dibyasom@2001"
 }
 
@@ -35,13 +46,15 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-    "username": "Rex",
-    "password": "ImKyoot"
+    "username": "kylo_ren",
+    "password": "emailer1234"
 }
 
-###
+### **************************************************************************************************************
+ 
+### JWT signed calls only.
 GET http://localhost:3000/compliment
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRpYnlhc29tIFB1aGFuIiwiaWF0IjoxNjExMTYzMDQ2fQ.bowkT-zYdmeJF-MFBJqel58uG4OmcPq5IBtVtOoourk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRpYnlhc29tIFB1aGFuIiwiaWF0IjoxNjExMzIzMDg2fQ.ws9dSo1jVjFkcDBs-_fF6R0TXjd5tQzFoPMTUPevBM0
 
 ###
 GET http://localhost:3000/compliment
