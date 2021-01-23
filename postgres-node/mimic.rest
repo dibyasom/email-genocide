@@ -54,8 +54,12 @@ Content-Type: application/json
  
 ### JWT signed calls only.
 GET http://localhost:3000/recent-emails
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MTEzMzczMTh9.zeZV-wd19-fmDHxVXxI8ursRVauZzCU4hjgLPk9WASs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MTE0MTQ2NTJ9.MUh4nvZYG8dh_cw5H2nJsASQMxA1by8liFH9hiAr2dg
 
 ### 
 GET http://localhost:3000/compliment
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJleCIsImlhdCI6MTYxMTE2MzA4N30.QGO3psg7Z7ZOPusmXV4OdK29Fnr26cyPKLl0PUUuR8Y
+
+###
+
+GET http://localhost:3000/get

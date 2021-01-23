@@ -8,8 +8,7 @@ const express = require("express");
 const { Pool } = require("pg");
 const { resourceUsage, nextTick } = require("process");
 const pool = new Pool({
-  connectionString:
-    "postgresql://postgres:mysecretpassword@localhost:5432/emailer",
+  connectionString: "postgresql://postgres:emailer1234@localhost:5432/emailer",
 });
 
 // Password hashing+salting
@@ -40,8 +39,9 @@ async function init() {
       const client = await pool.connect();
       const [result] = await Promise.all([client.query(`${query}`)]);
       return result.rows;
-    } finally {
+    } catch (err) {
       console.log("Error ********* Fetching from postgreSQL");
+      console.log(err);
     }
   }
 
@@ -50,8 +50,9 @@ async function init() {
     try {
       const client = await pool.connect();
       await Promise.all([client.query(`${query}`)]);
-    } catch {
+    } catch (err) {
       console.log(`Error ********* Failed posting into postgreSQL`);
+      console.log(err);
     }
   }
 
@@ -142,15 +143,20 @@ async function init() {
 
   //   ************************************ Testbench-1.*****************************************************************
   app.get("/get", async (req, res) => {
-    let result = await GET_psql(
-      `SELECT email_id FROM users WHERE user_id='${req.query.search}'`
-    );
-    result = result[0];
+    let result = await GET_psql(`SELECT email_id FROM emailstored`);
+    let recentEmailInfo = [];
+    result.forEach(async (emailObj) => {
+      recentEmailInfo.push(
+        await GET_psql(
+          `SELECT emailno, username, email_id FROM users INNER JOIN emailinfo ON users.user_id=emailinfo.user_id WHERE email_id='${emailObj.email_id}' ORDER BY timesent DESC LIMIT 1;`
+        )
+      );
+    });
 
+    console.log(recentEmailInfo);
     res
       .json({
-        loginPassword: result.loginpassword || "",
-        userType: result.usertype || "",
+        reslut: recentEmailInfo,
       })
       .end();
   });
