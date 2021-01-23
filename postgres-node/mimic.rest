@@ -5,7 +5,7 @@
 
 POST http://localhost:3000/user/register
 Content-Type: application/json
-
+ 
 {
     "username": "necromancer_",
     "password": "Dibyasom@2001",
@@ -56,6 +56,6 @@ Content-Type: application/json
 GET http://localhost:3000/recent-emails
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MTEzMzczMTh9.zeZV-wd19-fmDHxVXxI8ursRVauZzCU4hjgLPk9WASs
 
-###
+### 
 GET http://localhost:3000/compliment
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJleCIsImlhdCI6MTYxMTE2MzA4N30.QGO3psg7Z7ZOPusmXV4OdK29Fnr26cyPKLl0PUUuR8Y

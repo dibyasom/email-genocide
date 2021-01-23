@@ -22,7 +22,7 @@ docker exec -it -u postgres my-postgres psql
 CREATE TABLE users(
 user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 userName VARCHAR (20) UNIQUE NOT NULL,
-loginPassword VARCHAR (15) NOT NULL,
+loginPassword VARCHAR (60) NOT NULL,
 fullName VARCHAR (20) NOT NULL,
 phoneNo VARCHAR (10) UNIQUE NOT NULL,
 userType BOOLEAN NOT NULL
