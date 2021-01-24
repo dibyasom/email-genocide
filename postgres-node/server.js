@@ -144,12 +144,10 @@ async function init() {
   //   ************************************ Testbench-1.*****************************************************************
   app.get("/get", async (req, res) => {
     let result = await GET_psql(`SELECT email_id FROM emailstored`);
-    let recentEmailInfo = [];
+    let recentEmailInfo = {};
     result.forEach(async (emailObj) => {
-      recentEmailInfo.push(
-        await GET_psql(
-          `SELECT emailno, username, email_id FROM users INNER JOIN emailinfo ON users.user_id=emailinfo.user_id WHERE email_id='${emailObj.email_id}' ORDER BY timesent DESC LIMIT 1;`
-        )
+      recentEmailInfo = await GET_psql(
+        `SELECT emailno, username, email_id FROM users INNER JOIN emailinfo ON users.user_id=emailinfo.user_id WHERE email_id='${emailObj.email_id}' ORDER BY timesent DESC LIMIT 1;`
       );
     });
 
