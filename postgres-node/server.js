@@ -8,7 +8,7 @@ const express = require("express");
 const { Pool } = require("pg");
 const { resourceUsage, nextTick } = require("process");
 const pool = new Pool({
-  connectionString: "postgresql://postgres:emailer1234@localhost:5432/emailer",
+  connectionString: "postgresql://postgres:emailer1234@db:5432/emailer",
 });
 
 // Password hashing+salting
