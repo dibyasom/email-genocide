@@ -8,7 +8,7 @@ const express = require("express");
 const { Pool } = require("pg");
 const { resourceUsage, nextTick } = require("process");
 const pool = new Pool({
-  connectionString: "postgresql://postgres:emailer1234@db:5432/emailer",
+  connectionString: "postgresql://postgres:emailer1234@localhost:5432/emailer",
 });
 
 // Password hashing+salting
@@ -63,9 +63,15 @@ async function init() {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       POST_psql(`INSERT INTO users (username, loginpassword, fullname, phoneno, usertype) 
         VALUES ('${req.body.username}', '${hashedPassword}', '${req.body.fullname}', '${req.body.phoneno}', ${req.body.usertype});`);
-      res.status(201).send();
-    } catch {
-      res.status(500).send();
+      res.json({
+        status: "ok",
+        code: 201,
+      });
+    } catch (err) {
+      res.json({
+        status: "failed",
+        error: err,
+      });
     }
   });
 

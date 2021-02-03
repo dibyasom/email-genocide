@@ -21,11 +21,11 @@ POST http://localhost:3000/user/register
 Content-Type: application/json
 
 {
-    "username": "kylo_ren",
-    "password": "emailer123",
-    "email": "nakul.chawla1532@gmail.com",
-    "fullname": "Nakul Chawla",
-    "phoneno": "9896549995",
+    "username": "imusun",
+    "password": "ishikavirginmojhito",
+    "email": "ishikakesarwani2000@gmail.com",
+    "fullname": "Ishika kesarwani",
+    "phoneno": "9911384200",
     "usertype": true
 }
 
@@ -46,19 +46,19 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-    "username": "kylo_ren",
-    "password": "emailer1234"
+    "username": "imusun",
+    "password": "ishikavirginmojhito"
 }
 
 ### **************************************************************************************************************
  
 ### JWT signed calls only.
 GET http://localhost:3000/recent-emails
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MTE2NDI3NTN9.9BzA_Ol-4WfhHAAMgUQ-c4s_4i9vsphs3Vn4ZovIrm8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MTIyODgxMjB9.oBJxpRU4OAnY6zG4MYP6ns56Fh8ZQlJg0HBPNjzkMvw
 ### 
 
-GET http://localhost:3000/compliment
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJleCIsImlhdCI6MTYxMTE2MzA4N30.QGO3psg7Z7ZOPusmXV4OdK29Fnr26cyPKLl0PUUuR8Y
+GET http://localhost:3000/recent-emails
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MTE2ODQxMTh9.52UrTXA1GMf2aLesOKUJN3f864j-y6Bp5w_ph4U4vwI
 
 ###
 
