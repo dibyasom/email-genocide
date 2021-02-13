@@ -8,7 +8,7 @@ const express = require("express");
 const { Pool } = require("pg");
 const { resourceUsage, nextTick } = require("process");
 const pool = new Pool({
-  connectionString: "postgresql://postgres:emailer1234@localhost:5432/emailer",
+  connectionString: "postgresql://postgres:Dibyasom@2001@0.0.0.0:8080/emailer",
 });
 
 // Password hashing+salting
@@ -80,7 +80,7 @@ async function init() {
   app.post("/user/login", async (req, res) => {
     //Look for username in database, if found fetch password and user_id.
     let user = await GET_psql(
-      `SELECT user_id, loginPassword, userType FROM users WHERE username='${req.body.username}'`
+      `SELECT user_id, loginPassword, username, userType FROM users WHERE username='${req.body.username}'`
     );
     user = user[0];
 
@@ -97,13 +97,42 @@ async function init() {
         };
         const JWtoken = jwt.sign(userTokenRaw, process.env.ACCESS_TOKEN_SECRET);
 
-        // res.send("Success!, Creating Token...");
-        res.json({ accessToken: JWtoken }).end("Token Created Successfully!");
+        // Send OK status in requested format. [Succesfull authentication]
+        res
+          .status(200)
+          .json({
+            status: "ok",
+            code: "200",
+            error: [],
+            message: "Credentials authentication successful.",
+            result: {
+              user: {
+                id: user.user_id,
+                name: user.username,
+                JWT: JWtoken,
+              },
+            },
+          })
+          .end();
       } else {
         res.send("Access Denied, wrong password ^_^ ");
       }
-    } finally {
-      res.status(500).send();
+    } catch (err) {
+      //send error details.
+      console.log("error", err);
+
+      res
+        .status(404)
+        .json({
+          status: "failed",
+          code: "404",
+          error: err,
+          message: "Database connection failed.",
+          result: {
+            user: {},
+          },
+        })
+        .end();
     }
   });
 
@@ -148,22 +177,16 @@ async function init() {
   );
 
   //   ************************************ Testbench-1.*****************************************************************
-  app.get("/get", async (req, res) => {
-    let result = await GET_psql(`SELECT email_id FROM emailstored`);
-    let recentEmailInfo = {};
-    result.forEach(async (emailObj) => {
-      recentEmailInfo = await GET_psql(
-        `SELECT emailno, username, email_id FROM users INNER JOIN emailinfo ON users.user_id=emailinfo.user_id WHERE email_id='${emailObj.email_id}' ORDER BY timesent DESC LIMIT 1;`
-      );
-    });
-
-    console.log(recentEmailInfo);
+  app.get("/greet", async (req, res) => {
+    console.log("Yeah Bitch!");
     res
+      .status(200)
       .json({
-        reslut: recentEmailInfo,
+        message: "Yeah docker's rolling!",
       })
       .end();
   });
+
   // *************************************** Testbench-2.******************************************************************
   app.get("/get/isAdmin", async (req, res) => {
     const queryFor = req.query.search;

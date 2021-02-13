@@ -46,8 +46,8 @@ POST http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-    "username": "imusun",
-    "password": "ishikavirginmojhito"
+    "username": "kylo_ren",
+    "password": "emailer1234"
 }
 
 ### **************************************************************************************************************
@@ -62,4 +62,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZ
 
 ###
 
-GET http://localhost:3000/get
+GET http://localhost:3000/greet
