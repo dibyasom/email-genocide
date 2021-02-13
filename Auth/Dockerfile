@@ -1,5 +1,5 @@
 # Build Container
-FROM node:10.19.0
+FROM node:15.8.0-stretch
 
 WORKDIR /build
 
@@ -10,11 +10,7 @@ RUN npm ci
 COPY . .
 
 # Runtime container
-FROM alpine
-
-RUN apk add --update nodejs
-
-RUN addgroup -S node && adduser -S node -G node 
+FROM node:15.8.0-alpine3.10
 
 USER node
 
