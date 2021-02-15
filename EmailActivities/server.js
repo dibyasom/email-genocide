@@ -7,11 +7,8 @@ const express = require("express");
 // Import postgreSQL client
 const { Pool } = require("pg");
 const { resourceUsage, nextTick } = require("process");
-const DB_URL =
-  process.env.PSQL_CONNECTION_STRING ||
-  "postgresql://postgres:emailer@0.0.0.0:5432/emailer";
 const pool = new Pool({
-  connectionString: DB_URL,
+  connectionString: "postgresql://postgres:Dibyasom@2001@0.0.0.0:8080/emailer",
 });
 
 // Password hashing+salting
@@ -29,7 +26,7 @@ app.use(express.static("./frontEnd"));
 const jwt = require("jsonwebtoken");
 
 // Start listening to PORT 3000.
-const PORT = 8080;
+const PORT = 3000;
 app.listen(PORT);
 console.log(`running on http://localhost:${PORT}`);
 
@@ -63,7 +60,6 @@ async function init() {
 
   app.post("/user/register", async (req, res) => {
     try {
-
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       POST_psql(`INSERT INTO users (username, loginpassword, fullname, phoneno, usertype) 
         VALUES ('${req.body.username}', '${hashedPassword}', '${req.body.fullname}', '${req.body.phoneno}', ${req.body.usertype});`);
@@ -72,7 +68,6 @@ async function init() {
         code: 201,
       });
     } catch (err) {
-      console.log(err);
       res.json({
         status: "failed",
         error: err,
@@ -184,11 +179,10 @@ async function init() {
   //   ************************************ Testbench-1.*****************************************************************
   app.get("/greet", async (req, res) => {
     console.log("Yeah Bitch!");
-    const result = await GET_psql("SELECT * FROM users;");
     res
       .status(200)
       .json({
-        message: result,
+        message: "Yeah docker's rolling!",
       })
       .end();
   });

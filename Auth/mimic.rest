@@ -3,7 +3,7 @@
 
 ### New registration call. 
 
-POST http://localhost:3000/user/register
+POST http://0.0.0.0:3000/user/register
 Content-Type: application/json
  
 {
@@ -17,15 +17,15 @@ Content-Type: application/json
 
 ### New registration call.
 
-POST http://localhost:3000/user/register
+POST http://0.0.0.0:8080/user/register
 Content-Type: application/json
 
 {
-    "username": "imusun",
-    "password": "ishikavirginmojhito",
-    "email": "ishikakesarwani2000@gmail.com",
-    "fullname": "Ishika kesarwani",
-    "phoneno": "9911384200",
+    "username": "nakulBhaiya",
+    "password": "mojito",
+    "email": "xyz@gmail.com",
+    "fullname": "Nakul Bhaiya",
+    "phoneno": "1234567890",
     "usertype": true
 }
 
