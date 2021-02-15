@@ -6,6 +6,13 @@
 docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d --rm postgres:13.0
 
 docker exec -it -u postgres my-postgres psql
+
+docker run -d \
+  -v (pwd)/emailer-301417-ad478e934849:/config \
+  -p 127.0.0.1:5432:5432 \
+  gcr.io/cloudsql-docker/gce-proxy:1.19.1 /cloud_sql_proxy \
+  -instances=emailer-301417:us-central1:emailcore-psql=tcp:0.0.0.0:5432 -credential_file=/config \
+  psql
 ```
 
 ## Create a Database
