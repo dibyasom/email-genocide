@@ -3,7 +3,7 @@
 
 ### New registration call. 
 
-POST http://0.0.0.0:3000/user/register
+POST http://localhost:3000/user/register
 Content-Type: application/json
  
 {

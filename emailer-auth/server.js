@@ -7,7 +7,7 @@ const express = require("express");
 // Import postgreSQL client
 const { Pool } = require("pg");
 const { resourceUsage, nextTick } = require("process");
-const DB_URL = "postgresql://postgres:emailer@db:5432/emailer";
+const DB_URL = "postgresql://postgres:emailer@localhost:5432/emailer";
 const pool = new Pool({
   connectionString: DB_URL,
 });
@@ -57,6 +57,8 @@ async function init() {
       console.log(`Error ********* Failed posting into postgreSQL`);
       console.log(err);
     }
+
+    console.log("Posted!");
   }
 
   //   *************************************SERVES REGISTRATION FUNCTIONALITY.*****************************************************************
